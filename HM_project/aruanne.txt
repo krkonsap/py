@@ -1,0 +1,156 @@
+--------------------------------------------------
+	PROJEKTI ARUANNE - "poomine"	
+--------------------------------------------------
+
+1. Projekti kirjeldus
+	1.1 Projekt koosneb kolmest osast:
+		* programm ('poomine.py') - projekti põhiosa
+		* tekstifail ('sonad.txt') - sisaldab programmi tööks vajalikku infot
+		* aruanne ('aruanne.txt') - käesolev dokument
+	1.2 Projekti eesmärk
+		* Projekti eesmärgiks on luua programm, mille abil saab kasutaja mängida n-ö klassikalist poomise mängu, 
+		kus etteantud kordade arvuga tuleb ära arvata lahenduseks olev sõna. Selle õnnestumisel võidab kasutaja 
+		mängu ning saab suure au ja kuulsuse osaliseks.
+	1.3 Töö selgitus
+		* järgnevalt tuuakse välja programmi kood koos asja kohaste kommentaaridega
+
+	--------------------------------------------------
+	##### kommenteeritud kood #####
+	--------------------------------------------------
+
+	import random
+
+	#defineerime funktsiooni poomine
+	def poomine():
+  
+	  # Seame sidekriipsude arvu võrdseks lahendussõna omaga.
+	  # Seame pakkumiste arvuks 10. 
+	  kriips = "-" * len(lahendus)
+	  pakkumiste_arv = 10
+  
+	  # Loome tsükli, mis kestab seni, kuni mõlemad tingimused on täidetud.
+	  # Esimeseks tingimuseks on pakkumiste arv suurem kui 0.
+	  # Teiseks tingimuseks on see, et kriipsude arv ei võrdu lahendussõna pikkusega.
+	  while pakkumiste_arv > 0 and not kriips == lahendus:
+    
+	    # Iga tsükli alguses väljastatakse sidekriipsud ning järele jäänud pakkumiste arv.
+	    print("Otsitav sõna: " + kriips)
+	    print ("Pakkumisi järel: " + str(pakkumiste_arv))
+    
+	    # Küsime kasutajalt sisendit.
+	    pakkumine = input("Pakkumine:")
+    
+	    # Edasi tulevad tingimused, mis väljastavad sõnumid 
+	    # vastavalt kasutaja sisendile ja tingimuslausete tõesusele.
+
+	    # Kui kasutaja sisestab rohkem kui ühe märgi.
+	    if len(pakkumine) != 1:
+	      print ("Pakkumiseks saab olla ainult üks tähemärk!")
+    
+	    # Kui kasutaja sisestab lahenduses oleva tähemärgi, siis väljastatakse vastav teade
+	    # ning uuendatakse 'kriips_uuendus' funktsiooni abil sidekriipsude jada.
+	    elif pakkumine in lahendus:
+	      print ("See täht on lahenduses!")
+	      kriips = kriips_uuendus(lahendus, kriips, pakkumine)
+    
+	    # Kui kasutaja sisestab tähemärgi, mida lahenduses ei ole, siis väljastatakse vastav teade
+	    # ning lahutatakse pakkumiste arvust 1.
+	    else:
+	      print ("Täht puudub lahendusest!")
+	      pakkumiste_arv -= 1
+  
+	  # Juhul kui pakkumiste arv on jäänud väiksemaks ühest, väljastatakse mängu kaotamise teade.  
+	  if pakkumiste_arv < 1:
+	    print ("Kaotus.. Otsitav sõna oli: " + str(lahendus))
+  
+	  # Kui sidukriipsude sõne võrdub lahendussõnaga, siis väljastatakse võiduteade.
+	  else:
+	    print ("Õnnitlused! Sõnaks oli: " + str(lahendus))
+
+	# Defineerime funktsiooni, mis uuendab sidekriipsudest koosnevat sõnet
+	# asendades kriipsude jadas kasutaja poolt õigesti sisestatud tähemärgi
+	def kriips_uuendus(lahend, kriips_u, arvatud):
+	  tulemus = ""
+  
+	  # Käime for-tsükliga läbi.
+	  for i in range(len(lahend)):
+	    if lahend[i] == arvatud:
+	      # Kui pakkumine on tõene, siis see lisatakse tulemusele.
+	      tulemus = tulemus + arvatud
+      
+	    # Kui pakkumine pole tõene, siis lisatakse tulemusele kriips.
+	    else:
+	      tulemus = tulemus + kriips_u[i]
+
+	  # Tagastame tulemuse.    
+	  return tulemus
+    
+	# Avame sõnasid sisaldava faili.
+	sonad_fail = open('sonad.txt')
+
+	# Loome failis olevatest sõnadest järjendi 'sonad'.
+	sonad = sonad_fail.read().splitlines()
+
+	# Võtame randomi abil järjendist 'sonad' ühe suvalise sõna.
+	lahendus = random.choice(sonad)
+
+	# Käivitame funktsiooni.
+	poomine()
+
+	--------------------------------------------------
+	##### kommenteeritud kood #####
+	--------------------------------------------------
+
+	1.4 Kasutusjuhis
+		* Käivitage programm.
+		* Programm väljastab otsitava sõna pikkuse sidekriipsudena.
+		* Programm väljastab pakkumiste arvu.
+		* Sisestage üks tähemärk.
+		* Kui sisestasite tähe, mis on otsitavas sõnas, siis asendatakse sidekriipsude jadas 
+		sidekriips(ud) õige tähega vastavalt lahendussõnale ning pakkumiste arv jääb samaks.
+		* Kui sisestatakse vale täht, jääb jada samaks, kuid väheneb pakkumiste arv.
+		* Kui sisestatakse kõik õiged tähed, on kasutaja võitnud ning programm lõpetab töö.
+		* Kui pakkumiseks lubatud kordade arvu jooksul lahenduseni ei jõuta, siis kasutaja
+		kaotab mängu ning programm lõpetab töö. Käivitage programm ja proovige uuesti.
+		* Vihjeks on kõik lahendussõnad seotud Programmeerimise aluste kursusega.
+
+--------------------------------------------------
+2. Ülevaade tööprotsessist
+	2.1 Ülevaade ajakulust
+		* Projekti peale kulus kolm päeva, iga päev ehk paar tundi.
+		* Kokku võis projekti peale kuluda umbes viis tundi.
+	2.2 Hinnang lõpptulemusele
+		2.2.1 Positiivne
+			* Projekt sai õigeaegselt valmis.
+			* Programm töötab korrektselt.
+			* Tulemus on sobiv.
+			* Projekt sisaldab piisavas mahus nõutud elemente.
+		2.2.2 Negatiivne
+			* Projekti jaoks kulus liigselt aega.
+			* Algne eesmärk oli teine, kui lõpptulemusena nähtav.
+			* Detailidesse takerdumine.
+			* Ajapuudus.
+
+--------------------------------------------------
+3. Selgitused/näited programmi osadest
+	* Täpsed selgitused programmi töö kohta on toodud punktis 1.3 kommentaaridena.
+	* Programmi testimisel oli abi Thonny debuggerist.
+	* Samuti oli nagu ikka palju abi guugeldamisest ja Stack Overflow-st.
+
+--------------------------------------------------
+4. Projekti checklist 
+	* Funktsioonid
+	* Valikulaused
+	* Tsüklid
+	* Kasutajalt sisendi küsimine
+	* Failist andmete lugemine
+	* Andmestruktuur - järjend
+	* Aruanne
+
+
+
+
+
+
+
+
